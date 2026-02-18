@@ -45,12 +45,6 @@ const AppLayout = () => {
               >
                 Home
               </a>
-              <a
-                href="/error-test"
-                className="text-gray-600 hover:text-gray-900 transition-colors"
-              >
-                Error Test
-              </a>
               <UserMenu />
             </div>
           </nav>
