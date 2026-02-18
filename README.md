@@ -81,42 +81,6 @@ src/
 └── App.tsx             # Main application component
 ```
 
-## Setup Instructions
-
-### Prerequisites
-
-- Node.js 18+ and npm
-- Git for version control
-
-### Installation
-
-1. Clone the repository:
-
-   ```bash
-   git clone <repository-url>
-   cd todo-application
-   ```
-
-2. Install dependencies:
-
-   ```bash
-   npm install
-   ```
-
-3. Start development server:
-
-   ```bash
-   npm run dev
-   ```
-
-4. Open browser to `http://localhost:5173`
-
-### Available Scripts
-
-- `npm run dev` - Start development server with hot reload
-- `npm run build` - Build for production
-- `npm run preview` - Preview production build
-- `npm run lint` - Run ESLint checks
 
 ## API Integration
 
@@ -197,45 +161,3 @@ The application integrates with the external Todo API at `https://api.oluwasetem
 - Collaborative features
 - Mobile app development
 
-## Development Notes
-
-### Code Quality
-
-- Strict TypeScript configuration
-- ESLint with React-specific rules
-- Component-based architecture
-- Custom hooks for reusable logic
-- Consistent naming conventions
-
-### Testing Strategy
-
-- Error boundary testing via dedicated route
-- Component integration testing
-- API response validation
-- Accessibility testing with screen readers
-
-### Security Considerations
-
-- Input sanitization and validation
-- XSS prevention
-- Secure token storage
-- HTTPS enforcement in production
-- Rate limiting awareness
-
-## Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make changes with proper testing
-4. Submit a pull request with description
-
-## License
-
-This project is licensed under the MIT License.
