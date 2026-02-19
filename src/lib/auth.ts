@@ -36,6 +36,26 @@ export const authApi = {
   },
 
   getCurrentUser: async (): Promise<User> => {
+    const token = localStorage.getItem("auth_token");
+    if (!token) {
+      throw new Error("No token found");
+    }
+
+    // Validate token format before sending
+    try {
+      const parts = token.split(".");
+      if (parts.length !== 3) {
+        throw new Error("Invalid token format");
+      }
+      const payload = JSON.parse(atob(parts[1]));
+
+      if (!payload.exp || Date.now() >= payload.exp * 1000) {
+        throw new Error("Token expired");
+      }
+    } catch {
+      throw new Error("Invalid token");
+    }
+
     const response = await api.get("/auth/me");
     return response.data;
   },

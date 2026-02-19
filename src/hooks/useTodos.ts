@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { todoApi } from "../lib/api";
 import type { CreateTodoRequest, UpdateTodoRequest } from "../types/todo";
+import { useAuth } from "../components/AuthContext";
 
 export const useTodos = (
   page = 1,
@@ -9,10 +10,46 @@ export const useTodos = (
     status?: "all" | "todo" | "in_progress" | "completed";
   },
 ) => {
+  const { user } = useAuth();
+
   return useQuery({
-    queryKey: ["todos", page, filters],
+    queryKey: ["todos", page, filters, user?.id],
     queryFn: () => todoApi.getTodos(page, 10, filters),
-    staleTime: 5 * 60 * 1000, // 5 minutes
+    staleTime: 5 * 60 * 1000,
+    select: (data) => {
+      const filteredTodos = data.data.filter((todo) => {
+        // Check if todo belongs to current user
+        const belongsToUser = !user || !todo.owner || todo.owner === user.id;
+
+        if (!belongsToUser) {
+          console.log("Filtering out todo not belonging to user:", {
+            todoId: todo.id,
+            todoOwner: todo.owner,
+            currentUserId: user?.id,
+            todoName: todo.name,
+          });
+        }
+
+        return belongsToUser;
+      });
+
+      console.log("User filtering results:", {
+        originalCount: data.data.length,
+        filteredCount: filteredTodos.length,
+        currentUser: user?.id,
+        totalPages: Math.ceil(filteredTodos.length / 10),
+      });
+
+      return {
+        ...data,
+        data: filteredTodos,
+        meta: {
+          ...data.meta,
+          total: filteredTodos.length,
+          totalPages: Math.ceil(filteredTodos.length / 10),
+        },
+      };
+    },
   });
 };
 

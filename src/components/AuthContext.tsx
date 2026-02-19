@@ -28,10 +28,16 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   useEffect(() => {
     if (error) {
-      // Clear invalid tokens on any error
-      console.log("Auth error, clearing tokens:", error.message);
-      localStorage.removeItem("auth_token");
-      localStorage.removeItem("refresh_token");
+      // Only clear tokens on 401 Unauthorized, not all errors
+      const errorStatus = (error as { response?: { status?: number } })
+        ?.response?.status;
+      if (errorStatus === 401) {
+        console.log("401 Unauthorized - clearing tokens:", error.message);
+        localStorage.removeItem("auth_token");
+        localStorage.removeItem("refresh_token");
+      } else {
+        console.log("Auth error (not 401) - keeping tokens:", error.message);
+      }
     }
   }, [error]);
 

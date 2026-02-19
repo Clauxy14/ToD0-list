@@ -35,7 +35,7 @@ export class ErrorBoundary extends Component<Props, State> {
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
           <div className="max-w-md w-full bg-white rounded-lg shadow-md p-6">
             <div className="flex items-center mb-4">
-              <div className="flex-shrink-0">
+              <div className="mt-1 shrink-0">
                 <svg
                   className="h-6 w-6 text-red-400"
                   fill="none"

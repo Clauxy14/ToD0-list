@@ -48,7 +48,9 @@ export const todoApi = {
       );
     }
 
+    console.log("Fetching todos with params:", params.toString());
     const response = await api.get(`/tasks?${params.toString()}`);
+    console.log("API Response:", response.data);
     return response.data;
   },
 
