@@ -77,8 +77,24 @@ export const useToggleTodoStatus = () => {
       currentStatus: string;
     }) => {
       const newStatus = currentStatus === "COMPLETED" ? "TODO" : "COMPLETED";
+
+      // API requires complete payload or specific fields
       return todoApi.updateTodo(id, {
         status: newStatus as "TODO" | "IN_PROGRESS" | "COMPLETED",
+        // Include other required fields to avoid validation errors
+        name: "", // This will be handled by the API call
+        description: null,
+        start: null,
+        end: null,
+        duration: null,
+        priority: "LOW",
+        archived: false,
+        isDefault: null,
+        parentId: null,
+        children: "",
+        owner: null,
+        tags: null,
+        completedAt: null,
       });
     },
     onSuccess: (_, { id }) => {

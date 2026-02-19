@@ -90,7 +90,8 @@ export const todoApi = {
     try {
       const response = await api.delete(`/tasks/${id}`);
       console.log("Delete response:", response.status, response.data);
-      return response.data;
+      // API returns 204 with no content on successful deletion
+      return;
     } catch (error) {
       console.error(
         "Delete error:",
